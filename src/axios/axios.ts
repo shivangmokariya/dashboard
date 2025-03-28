@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
 //   baseURL: process.env.REACT_APP_BASE_URL,
-  baseURL: "http://localhost:8000/api",
+  baseURL: "http://35.88.181.210:8000/api",
 });
 
 // Request Interceptor

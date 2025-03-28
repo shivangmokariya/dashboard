@@ -32,7 +32,8 @@ const GoogleAuth: React.FC = () => {
 
   const sendTokenToBackend = async (token: string) => {
     try {
-      const res = await fetch("http://localhost:8000/auth/google/callback", {
+      // const res = await fetch("http://38.alhost:8000/auth/google/callback", {
+      const res = await fetch("http://35.88.181.210:8000/google/callback",{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
