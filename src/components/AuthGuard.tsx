@@ -5,7 +5,8 @@ import toast from 'react-hot-toast';
 
 const AuthGuard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const token = localStorage.getItem('token');
+  const rawToken = localStorage.getItem('token');
+  const token = rawToken ? rawToken.replace(/^"(.*)"$/, '$1') : null;
 
   useEffect(() => {
     const checkToken = async () => {
