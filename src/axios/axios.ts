@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-//   baseURL: process.env.REACT_APP_BASE_URL,
-  baseURL: "http://35.88.181.210:8000/api",
+  baseURL: process.env.VITE_BACKEND_URL,
+  // baseURL: "http://35.88.181.210:8000/api",
 });
 
 // Request Interceptor
