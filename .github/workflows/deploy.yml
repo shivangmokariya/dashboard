@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -r dist ec2-user@3.110.207.124:/home/ec2-user/shivang/dashboard
+          scp -o StrictHostKeyChecking=no -i private_key.pem -r dist ec2-user@3.110.207.124:/home/ec2-user/shivang/dashboard
 
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
