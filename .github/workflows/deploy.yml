@@ -31,3 +31,7 @@ jobs:
            scp -o StrictHostKeyChecking=no -i private_key.pem -r dist/* ec2-user@3.110.207.124:home/ec2-user/shivang/dashboard
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 🖥️ Restart PM2
+        run: |
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 "pm2 restart dashboard-app"
