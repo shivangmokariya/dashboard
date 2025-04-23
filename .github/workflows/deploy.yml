@@ -32,6 +32,12 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: 🖥️ Restart PM2
+      - name: 🖥️ Restart PM2 on EC2
         run: |
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 "pm2 restart dashboard-app"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 << 'EOF'
+            cd /home/ec2-user/shivang/dashboard
+            git pull origin master
+            pm2 restart dashboard-app || pm2 start serve -s dist -p 5173 --name dashboard-app
+          EOF
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
