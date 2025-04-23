@@ -3,7 +3,7 @@ name: Vite React CI/CD
 on:
   push:
     branches:
-      - master
+      - main  # Trigger on push to the main branch
 
 jobs:
   build-deploy:
@@ -24,22 +24,11 @@ jobs:
       - name: 🛠️ Build project
         run: npm run build
 
-      - name: 🐛 Debug file paths
-        run: ls -la && ls -la dist
-
-      - name: 🧪 Test SSH Connection
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@3.110.207.124 "echo '✅ SSH is working!'"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
       - name: 📤 Deploy to server via SCP
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -o StrictHostKeyChecking=no -i private_key.pem -r dist deploy.yml ec2-user@3.110.207.124:/home/ec2-user/shivang/dashboard/
+          scp -o StrictHostKeyChecking=no -i private_key.pem -r dist/* ec2-user@3.110.207.124:/home/ec2-user/shivang/dashboard
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
