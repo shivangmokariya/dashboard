@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-           scp -o StrictHostKeyChecking=no -i private_key.pem -r dist/* ec2-user@3.110.207.124:home/ec2-user/shivang/dashboard
+          scp -o StrictHostKeyChecking=no -i private_key.pem -r dist/* ec2-user@3.110.207.124:/home/ec2-user/shivang/dashboard
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -41,3 +41,10 @@ jobs:
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Debug SSH connection
+  run: |
+    echo "$SSH_PRIVATE_KEY" > private_key.pem
+    chmod 600 private_key.pem
+    ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 'echo Connected!'
+  env:
+    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
