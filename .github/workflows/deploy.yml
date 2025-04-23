@@ -34,17 +34,19 @@ jobs:
 
       - name: 🖥️ Restart PM2 on EC2
         run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
           ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 << 'EOF'
             cd /home/ec2-user/shivang/dashboard
-            git pull origin master
             pm2 restart dashboard-app || pm2 start serve -s dist -p 5173 --name dashboard-app
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Debug SSH connection
-  run: |
-    echo "$SSH_PRIVATE_KEY" > private_key.pem
-    chmod 600 private_key.pem
-    ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 'echo Connected!'
-  env:
-    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: 🧪 Test SSH Connection
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@3.110.207.124 "echo '✅ SSH is working!'"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
