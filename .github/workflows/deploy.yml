@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          scp -o StrictHostKeyChecking=no -i private_key.pem -r dist ec2-user@3.110.207.124:/home/ec2-user/shivang/dashboard
+          scp -o StrictHostKeyChecking=no -i private_key.pem -r dist ec2-user@13.203.213.69:/home/ec2-user/shivang/dashboard
 
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -37,7 +37,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@3.110.207.124 << 'EOF'
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@13.203.213.69 << 'EOF'
             cd /home/ec2-user/shivang/dashboard
             pm2 restart dashboard-app || pm2 start serve -s dist -p 5173 --name dashboard-app
           EOF
