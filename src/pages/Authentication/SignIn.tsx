@@ -7,34 +7,34 @@ import { useState } from 'react';
 import GoogleAuth from './GoogleAuth';
 
 const SignIn = () => {
-  const [email,setEmail]=useState();
-  const [password,setPassword]=useState();
-  const [notEmail,setNotEmail]=useState(false);
-  const [notPassword,setNotPassword]=useState(false);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [notEmail, setNotEmail] = useState(false);
+  const [notPassword, setNotPassword] = useState(false);
   const navigate = useNavigate();
 
-const handleSignIn=(e:any)=>{
-  e.preventDefault();
-  setNotEmail(!email);
-  setNotPassword(!password);
-    if(email && password){
-      axios.post("/login",{email,password})
-      .then((res:any)=>{ 
-        console.log(res.data,"<<<<<<res.data.data")
-        if(res.data.status === 204){
-         return toast.success(res.data.message)
-        }else{
-          toast.success('Successfully Logged In!')
-          localStorage.setItem("user",JSON.stringify(res.data.data))
-          localStorage.setItem("token",JSON.stringify(res.data.token))
-          navigate('/');
-        }
-      }).catch((e:any)=>{
-        toast.error("Invalid credential")
-        console.log(e,"<<<<<<error during API call")
-      })    
+  const handleSignIn = (e: any) => {
+    e.preventDefault();
+    setNotEmail(!email);
+    setNotPassword(!password);
+    if (email && password) {
+      axios.post("/login", { email, password })
+        .then((res: any) => {
+          console.log(res.data, "<<<<<<res.data.data")
+          if (res.data.status === 204) {
+            return toast.success(res.data.message)
+          } else {
+            toast.success('Successfully Logged In!')
+            localStorage.setItem("user", JSON.stringify(res.data.data))
+            localStorage.setItem("token", JSON.stringify(res.data.token))
+            navigate('/');
+          }
+        }).catch((e: any) => {
+          toast.error("Invalid credential")
+          console.log(e, "<<<<<<error during API call")
+        })
     }
-}
+  }
 
   return (
     <>
@@ -116,7 +116,7 @@ const handleSignIn=(e:any)=>{
                     d="M116.263 203.477C118.05 203.477 119.499 202.029 119.499 200.243C119.499 198.457 118.05 197.01 116.263 197.01C114.476 197.01 113.027 198.457 113.027 200.243C113.027 202.029 114.476 203.477 116.263 203.477Z"
                     fill="#3056D3"
                   />
-                  <path 
+                  <path
                     d="M126.818 203.477C128.605 203.477 130.054 202.029 130.054 200.243C130.054 198.457 128.605 197.01 126.818 197.01C125.031 197.01 123.582 198.457 123.582 200.243C123.582 202.029 125.031 203.477 126.818 203.477Z"
                     fill="#3056D3"
                   />
@@ -181,7 +181,7 @@ const handleSignIn=(e:any)=>{
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <span className="mb-1.5 block font-medium">Start for free</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to Admin
+                Sign In to ---
               </h2>
 
               <form>
@@ -192,12 +192,12 @@ const handleSignIn=(e:any)=>{
                   <div className="relative">
                     <input
                       type="email"
-                      onChange={(e)=>setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
-                    {notEmail  &&
-                    <p>Email is required</p> }
+                    {notEmail &&
+                      <p>Email is required</p>}
 
                     <span className="absolute right-4 top-4">
                       <svg
@@ -226,12 +226,12 @@ const handleSignIn=(e:any)=>{
                   <div className="relative">
                     <input
                       type="password"
-                      onChange={(e)=>setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
-                    {notPassword  &&
-                    <p>password is required</p> }
+                    {notPassword &&
+                      <p>password is required</p>}
                     <span className="absolute right-4 top-4">
                       <svg
                         className="fill-current"
@@ -266,7 +266,7 @@ const handleSignIn=(e:any)=>{
                 </div>
 
                 {/* <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50"> */}
-                  <GoogleAuth />
+                <GoogleAuth />
                 {/* </button> */}
 
                 <div className="mt-6 text-center">
