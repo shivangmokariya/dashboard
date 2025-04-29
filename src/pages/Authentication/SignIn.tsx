@@ -49,7 +49,7 @@ const SignIn = () => {
 
               <p className="2xl:px-20">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+                suspendisse.-
               </p>
 
               <span className="mt-15 inline-block">
